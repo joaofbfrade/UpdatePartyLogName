@@ -77,7 +77,7 @@ namespace UpdatePartyLogName
 
                     trace.Trace("2");
                     trace.Trace(updatedDocumentPartyLog.Id.ToString());
-                    //trace.Trace(relatedEntityDoc.Id.ToString());
+                    //trace.Trace(relatedEntityDoc.Id.ToString());  
 
                     
                     
