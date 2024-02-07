@@ -30,7 +30,7 @@ namespace UpdatePartyLogName
             //     and call actions to handle the supported messages
             switch (_context.MessageName.ToUpperInvariant())
             {
-                
+
                 //case "CREATE":
                 //  OnCreate();
                 // break;
@@ -49,13 +49,12 @@ namespace UpdatePartyLogName
 
         private void OnUpdate()
         {
-            trace.Trace("update");
+
 
 
             if (_context.InputParameters.Contains("Target") && _context.InputParameters["Target"] is Entity)
             {
 
-                trace.Trace("if");
 
                 // Get Record
 
@@ -65,7 +64,7 @@ namespace UpdatePartyLogName
                 if (updatedDocumentPartyLog.LogicalName == "arq_documentpartylog")
                 {
                     //New Record
-                    trace.Trace("1");
+
 
 
                     Guid userid;
@@ -75,17 +74,17 @@ namespace UpdatePartyLogName
                     EntityReference relatedEntityEntity = updatedDocumentPartyLog.GetAttributeValue<EntityReference>("arq_relatedentity");
                     //EntityReference relatedEntityDoc= updatedDocumentPartyLog.GetAttributeValue<EntityReference>("arq_document");
 
-                    trace.Trace("2");
+
                     trace.Trace(updatedDocumentPartyLog.Id.ToString());
                     //trace.Trace(relatedEntityDoc.Id.ToString());  
 
-                    
-                    
 
 
 
 
-                    if (relatedEntityUser == null && relatedEntityEntity==null )
+
+
+                    if (relatedEntityUser == null && relatedEntityEntity == null)
                     {
                         Entity myentity2 = service.Retrieve(updatedDocumentPartyLog.LogicalName, updatedDocumentPartyLog.Id, new ColumnSet("arq_document"));
                         var iddoclog = myentity2.GetAttributeValue<EntityReference>("arq_document").Id;
@@ -96,42 +95,31 @@ namespace UpdatePartyLogName
 
                         if (iddocfrom == updatedDocumentPartyLog.Id)
                         {
-                            trace.Trace("from");
+
 
                             name = "-From";
                         }
                         else
                         {
-                            trace.Trace("to");
 
                             name = "-To";
                         }
 
 
 
-                        //doclogid = documentlog.GetAttributeValue<String>("firstname")
 
 
                     }
 
 
-
-
-
-
-
-
-
-
-
                     if (relatedEntityUser != null)
                     {
-                        trace.Trace("user");
+
                         userid = relatedEntityUser.Id;
                         ColumnSet columns = new ColumnSet("firstname", "lastname");
                         Entity docRecord = service.Retrieve("systemuser", userid, columns);
                         name = "-" + docRecord.GetAttributeValue<String>("firstname") + " " + docRecord.GetAttributeValue<String>("lastname");
-                       
+
 
 
                     }
@@ -169,17 +157,17 @@ namespace UpdatePartyLogName
                     else
                     {
                         String[] vector = prename.Split('-');
-                        Array.Resize(ref vector, vector.Length - 1);                        
+                        Array.Resize(ref vector, vector.Length - 1);
                         string result = string.Join("-", vector);
                         myentity["arq_name"] = result;
 
                     }
 
 
-                    
+
 
                     service.Update(myentity);
-                   
+
 
 
                 }
@@ -189,4 +177,4 @@ namespace UpdatePartyLogName
         }
     }
 }
-        
+
