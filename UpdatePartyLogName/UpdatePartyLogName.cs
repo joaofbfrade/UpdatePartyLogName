@@ -86,11 +86,11 @@ namespace UpdatePartyLogName
 
                     if (relatedEntityUser == null && relatedEntityEntity == null)
                     {
-                        Entity myentity2 = service.Retrieve(updatedDocumentPartyLog.LogicalName, updatedDocumentPartyLog.Id, new ColumnSet("arq_document"));
-                        var iddoclog = myentity2.GetAttributeValue<EntityReference>("arq_document").Id;
+                        Entity myentity2 = service.Retrieve(updatedDocumentPartyLog.LogicalName, updatedDocumentPartyLog.Id, new ColumnSet("arq_relateddocumentactivity"));
+                        var iddoclog = myentity2.GetAttributeValue<EntityReference>("arq_relateddocumentactivity").Id;
 
 
-                        Entity myentity3 = service.Retrieve("arq_documentlog", iddoclog, new ColumnSet("arq_docfromparty"));
+                        Entity myentity3 = service.Retrieve("arq_documentactivity", iddoclog, new ColumnSet("arq_docfromparty"));
                         var iddocfrom = myentity3.GetAttributeValue<EntityReference>("arq_docfromparty").Id;
 
                         if (iddocfrom == updatedDocumentPartyLog.Id)
